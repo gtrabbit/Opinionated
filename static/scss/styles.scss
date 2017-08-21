@@ -1,0 +1,349 @@
+$mainblue: #0c93c5;
+$lightblack: #212121;
+
+
+//General styles
+a{
+	color: complement($mainblue);
+}
+
+nav, header{
+	a{
+		text-decoration: none;
+	}
+}
+
+ul{
+	margin: 0;
+}
+
+body{
+	margin: 0;
+	font-family: Georgia;
+	min-height: 100vh;
+	background-color: $lightblack;
+}
+
+h1 {
+	font-size: 22pt;
+	margin: 0;
+	margin-right: 20px;
+}
+
+h2{
+	font-size: 18pt;
+	margin: 0;
+}
+
+h6{
+	margin: 20px 0 0 0;
+}
+
+h3{
+	margin: 2% auto;
+	text-align: center;
+	font-size: 16pt;
+}
+
+small{
+	font-size: 60%;
+	font-style: italic;
+}
+
+
+pre{
+	background-color: #eee;
+	overflow: scroll;
+}
+
+button, input[type='submit']{
+	border-radius: 10px;
+	border: solid black 1px;
+	background-color: $mainblue;
+	line-height: 10pt;
+	color: white;
+	cursor: pointer;
+}
+
+textarea{
+	width: 90%;
+	height: 300px;
+}
+
+label{
+	margin-top: 15px;
+}
+
+
+//header
+
+header{
+	color: white;
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	position: relative;
+	background: url('/static/imgs/blue-texture.jpg');
+
+	.login{
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin-right: 2px;
+		padding: 0 1%;
+		background-color: $lightblack;
+		border-radius: 10px;
+		button{
+			height: 18px;
+		}
+
+	}
+	.titles{
+		padding-top: 1%;
+		display: flex;
+		width: 100%;
+		margin: 2%;
+		align-items: baseline;
+		justify-content: flex-start;
+		border-bottom: solid complement($mainblue) 2px;
+		flex-wrap: wrap;
+		*{
+			color: white;
+			text-shadow: 1px 2px 3px black;
+
+		}
+
+	}
+	nav{
+		justify-content: space-between;
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+		padding: 0 2%;
+		background-color: $lightblack;
+		border-top: solid black 2px;
+		.search{
+			margin-right: 5px;
+		}
+		ul{
+			display: flex;
+			li{
+				flex-basis: 2;
+				padding: 0 15px;
+				list-style: none;
+				border-radius: 15px;
+				a{
+					color: complement($mainblue);
+				}
+			}
+		}
+	}
+}
+
+//specific classes
+
+.login-wrapper{
+	border: solid black 2px;
+	border-radius: 25px;
+	padding: 3%;
+	margin: auto;
+	overflow: hidden;
+}
+
+.itemDescription{
+	font-size: small;
+}
+
+.byLine{
+	font-size: small;
+}
+
+#searchHider{
+	display: none;
+}
+
+
+.flash{
+	color: $mainblue;
+}
+
+.newCats-wrapper{
+	position: absolute;
+	display: inline-block;
+	right: 2%;
+	top: -70px;
+	margin: 5px 20px 10px 20px;
+	box-shadow: 0 2px 4px 0px black;
+}
+
+.newCats{
+	background-color: white;
+	border: solid black 1px;
+	border-radius: 3px;
+	padding: 1% 1% 3% 1%;
+	color: black;
+}
+
+.voteUp{
+	background-color: #4d7;
+}
+
+.voteDown{
+	background-color: #f36;
+}
+
+.upVoteCounter{
+	color: #4d7;
+}
+
+.downVoteCounter{
+	color: #f36;
+}
+
+
+
+.danger{
+	background-color: invert($mainblue);
+}
+
+.deleteLink{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.aboutEdit{
+	display: block;
+	clear: both;
+}
+
+//profile styles
+
+
+.voteCounter-wrapper{
+	float: left;
+	margin-left: 10px;
+
+}
+
+.profilePic{
+	float: left;
+	max-width: 150px;
+	border-radius: 15px;
+	border: solid black 4px;
+	margin: 0 1% 2% 1%;
+	clear: both;
+
+}
+
+.userProfile{
+	p{
+		clear: both;
+		padding: 2%;
+	}
+}
+
+
+// general main
+
+main{
+	min-height: 40vh;
+	background-color: white;
+	border: solid black 2px;
+	margin-right: 2%;
+	padding: 2% 2% 90px 2%;
+	ul{
+		padding: 2% 4%;
+		text-align: left;
+		width: 90%;
+		max-width: 500px;
+		margin: auto;
+		font-size: 18pt;
+		border: solid black 2px;
+		border-radius: 25px;
+		li{
+			display: flex;
+			justify-content: space-between;
+			border-bottom: dashed silver 1px;
+			align-items: flex-end;
+			.byLine{
+				margin-left: 10%;
+				float: right;
+
+			}
+		}
+	}
+}
+
+
+// footer
+
+footer{
+	color: invert($lightblack);
+	background-color: $lightblack;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 10pt;
+	padding: 2% 0;
+	position: relative;
+	nav{
+		display: inline-block;
+		border-right: dashed invert($lightblack) 1px;
+		ul{
+			display: inline-block;
+			list-style: none;
+		}
+	}
+
+	.top{
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		*{
+			padding: 0 10px;
+		}
+	}
+}
+
+
+//hovers
+
+header, footer{
+	li {
+		a{
+			transition: color 0.5s;
+		}
+		transition: background-color 1s, color 0.5s;
+		&:hover{
+			background-color: #333;
+			a{
+				color: $mainblue;
+			}
+			
+		}
+	}
+
+}
+
+.openSearch {
+	transition: color 1s;
+	cursor: pointer;
+	&:hover{
+		color: invert($mainblue);
+	}
+}
+
+//media queries
+
+@media only screen and (min-width: 600px){
+	h1{
+		font-size: 36pt;
+	}
+	h2{
+		font-size: 26pt;
+	}
+	h3{
+		font-size: 22pt;
+	}
+
+}

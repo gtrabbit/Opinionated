@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/static/js/scripts.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+{% if session['username'] %}
+<!-- if session has a username, we are logged in. Therefore, we load the script to logout -->
+
+	<script type="text/javascript">
+			window.onload = function(){
+				let button = document.getElementById('login')
+				button.addEventListener('click', function(){
+					let xhr = new XMLHttpRequest()
+					xhr.open('GET', "{{url_for('gdisconnect')}}")
+					xhr.send(null)
+					xhr.onreadystatechange = function(){
+						if (xhr.readyState === 4){
+							if (xhr.status === 200){
+								window.location.reload()
+						}else {
+							console.log(xhr.responseText)
+						}
+							
+						} 
+					}
+				})
+				button.textContent = 'Logout'
+			}
+	</script>
+	
+{% else %}
+<!-- otherwise, we load the script for logging in -->
+	<script type="text/javascript">
+		window.onload = function(){
+			let button = document.getElementById('login')
+			button.addEventListener('click', function(){
+				window.location.href = "{{url_for('userLogin')}}?formerPage=" + window.location.href
+			})
+			button.textContent = 'Login'
+		}
+	</script>				
+{% endif %}
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+	<title>Opinionated - 
+	{% if item %}
+	{{item.name}}
+	{% elif category %}
+	{{category.name}}
+	{% elif user %}
+	{{user.username}}
+	{% else %}
+	Home
+	{% endif %}
+	</title>
+
+</head>
+<body>
+	<header>
+		<div class="titles">
+			<h1> <a href="{{url_for('showIndex')}}">Opinionated </a>&mdash;</h1>
+			{% if item %}
+			<h2> <a href="{{url_for('showItem', item_id = item.id)}}"> {{item.name}} </a> </h2>
+			{% if user %}
+			<small>&emsp; by &nbsp; </small> <a href="{{url_for('showUserCats', user_id = user.id)}}"> {{user.username}}</a> </h2>
+			{% endif %}
+			{% elif category and category.id != 0 %}
+			<h2> <a href="{{url_for('showCategory', category_id = category.id)}}"> {{ category.name }}</a> 
+			{% if user %}
+			<small>&emsp; by </small> <a href="{{url_for('showUserCats', user_id = user.id)}}"> {{user.username}}</a> </h2>
+			{% endif %}
+			{% elif user %}
+			<h2> {{user.username}} </h2>
+			{% else %}
+			<h2> Home </h2>
+			{% endif %}
+		</div>
+		<div>
+			<div class="login" id="loginDiv">
+			{% if session.user_id %}
+				<a href="{{url_for('showUserCats', user_id = session.user_id)}}">Me</a>
+			{% endif %}
+				<button id="login"
+				{% if session.get('onTheLoginPage') == True %}
+				style="display: none"
+				{% endif %}
+				>		
+				</button>
+			</div>
+		</div>
+
+
+		<nav>
+			{% include 'navlinks.html' %}
+			<div class="search">
+				{% include 'searchForm.html' %}
+			</div>
+		</nav>
+
+	</header>
+
+			<div class="flash" id="flash">
+				{% with messages = get_flashed_messages() %}
+      				{% if messages %}
+          		        <ul> {% for message in messages %}
+            				<li> <strong> {{ message }} </strong> </li>
+        					{% endfor %} </ul>
+        			{% endif %}
+    			{% endwith %}
+
+
+			</div>
+<main class="content">
+	{% block body %}
+	{% endblock %}
+</main>
+
+{% include 'footer.html' %}

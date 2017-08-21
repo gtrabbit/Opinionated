@@ -1,0 +1,35 @@
+{% block body %}
+
+<form action="/search" method="GET">
+	<label id="searchLabel" for="search" class="openSearch"> Search +
+	</label>
+	<div id="searchHider">
+		<input type="text" name="search">
+		<label id="searchDrop" > in:
+			<select name="searchType">
+				<option value="Category">Categories</option>
+				<option value="Item">Opinions</option>
+			</select>
+		</label>
+		<input type="submit" value="search" id="searchBtn">
+	</div>
+
+</form>
+
+
+<script type="text/javascript">
+	hider = document.getElementById('searchHider')
+
+	document.getElementById('searchLabel').addEventListener('click', function(){
+		 	if (hider.style.display != 'block'){
+		 		hider.style.display = 'block';
+		 	} else {
+		 		hider.style.display = 'none'
+		 	}
+		 })
+
+
+</script>
+
+
+{% endblock %}

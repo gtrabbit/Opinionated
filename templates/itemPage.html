@@ -1,0 +1,32 @@
+{% extends 'wrapper.html' %}
+{% block body %}
+
+<h3> {{item.name}} </h3> 
+<hr>
+{% if session.user_id %}
+<span>{% include 'voteButtons.html' %}</span>
+{% include 'voteCounter.html' %}
+	{% if user_voted %}
+
+		{% if user_voted['up_or_down'] == 1 %}
+			<span>&emsp; --your vote: <span class="upVoteCounter">
+				👍
+			</span>  </span>
+		{% else %}
+			<span>&emsp; --your vote: <span class="downVoteCounter"> 👎 </span></span>
+		{% endif %}
+	{% else %}
+
+{% endif %}
+{% endif %}
+
+<hr>
+<p>
+	{{item.description}}
+</p>
+
+{% if session.get('user_id') == item.created_by %}
+{% include 'editButtons.html' %}
+{% endif %}
+
+{% endblock %}

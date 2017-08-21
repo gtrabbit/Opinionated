@@ -1,0 +1,18 @@
+{% extends 'wrapper.html' %}
+{% block body %}
+
+<h3>Profile for: {{user.username}}</h3>
+	<img class="profilePic" src="{{user.picture}}">
+<form action="#" method="post">
+	<label> Username:
+		<input type="text" name="username" value="{{user.username}}">
+	</label>
+
+	<label class="aboutEdit"> About me:
+		<textarea name="about">{{user.about}}</textarea>
+	</label>
+	<input type="submit" value="Save">
+</form>
+<button class="danger" onclick=deleteUser("{{url_for('deleteUser', user_id = session.user_id)}}")>Delete Profile</button>
+
+{% endblock %}

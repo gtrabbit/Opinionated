@@ -1,0 +1,23 @@
+
+<footer>
+	<div class="newCats-wrapper">
+				{% if session.get('user_id') %}
+				<div class="newCats">
+					{% include 'makeNewCategory.html' %}
+				</div>
+				{% endif %}
+	</div>
+	<div class="top">
+		<nav>
+	 		{% include 'navlinks.html' %}
+		</nav>
+	<span>
+		Opinionated -- let us know what you think, because no one else wants to hear it.
+	</span>
+	</div>
+
+
+</footer>
+
+</body>
+</html>

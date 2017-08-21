@@ -1,0 +1,26 @@
+<!-- lists out all items in category -->
+
+{% extends 'wrapper.html' %}
+{% block body %}
+
+<h3>Viewing opinions in {{category.name}}</h3>
+
+<ul>
+	{% for item in items %}
+	<a href="{{url_for('showItem', item_id = item.id)}}">
+		<li> {{ item.name }} </li> </a> 
+		{% if session.get('user_id') == item.created_by %}
+		<div> {% include 'editButtons.html' %} </div>
+		{% endif %}
+		<p class="itemDescription"> {{item.description[0:50]}}... </p>
+	
+	{% endfor %}
+</ul>
+
+<div>
+	{% if category.id %}
+	{% include 'addNew.html' %}	
+	{% endif %}
+</div>
+
+{% endblock %}

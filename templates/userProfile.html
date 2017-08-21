@@ -1,0 +1,20 @@
+{% block body %}
+
+<div class="userProfile">
+	<h3> {{user.username}} </h3>
+	<img class="profilePic" src="{{user.picture}}">
+	<div class="voteCounter-wrapper">
+		<h6>Opinion Popularity</h6>
+		{% include 'voteCounter.html' %}
+
+		<h6>Voting Habits</h6>
+		{% include 'votingHabits.html' %}
+	</div>
+	<p>
+		{{user.about}}
+	</p>
+</div>
+
+
+<hr>
+{% endblock %}

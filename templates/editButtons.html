@@ -1,0 +1,33 @@
+{% block body %}
+
+
+
+<a href="{{url_for('editItem', item_id = item.id)}}">Edit</a>
+<a id="delete" class="deleteLink">Delete</a>
+
+
+
+
+
+
+
+<script type="text/javascript">
+	document.getElementById('delete').addEventListener('click', function(){
+			if (window.confirm('Really delete this item?')){
+		let xhr = new XMLHttpRequest()
+		xhr.open('DELETE', '{{url_for('deleteItem', item_id = item.id)}}')
+		xhr.send(null)
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState === 4){
+				if (xhr.status === 200){
+					window.location.reload()
+				} else {
+					console.log(xhr.responseText)
+				}			
+			} 
+		}
+	}
+	})
+</script>
+
+{% endblock %}

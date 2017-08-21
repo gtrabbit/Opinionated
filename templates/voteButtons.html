@@ -1,0 +1,39 @@
+{% block body %}
+
+<button class="voteUp" onclick="vote(1, {{session.user_id}}, {{item.id}})">👍</button>
+<button class="voteDown" onclick="vote(0, {{session.user_id}}, {{item.id}})">👎</button>
+<span id="confirmation"></span>
+
+<script type="text/javascript">
+	voted = false
+	const vote = function(vote, user, item){
+		url = "/opinions/vote/"+vote+"/"+user+"/"+item
+		if (!voted){
+			let xhr = new XMLHttpRequest()
+			xhr.open('POST', url)
+			xhr.send(null)
+			xhr.onreadystatechange = function(){
+				if (xhr.readyState === 4){
+					if (xhr.status === 200){
+						voted = true
+						document.getElementById('confirmation').textContent = xhr.responseText
+						Array.from(document.getElementsByTagName('button')).forEach(a=>{
+							a.setAttribute('disabled', true)
+						})
+
+					} else {
+						console.log(xhr.responseText)
+					}
+					
+				}	 
+			}
+		} else {
+			console.log("You've already voted!")
+		}
+
+	}
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'wrapper.html' %}
+{% block body %}
+
+<form action="#" method="POST">
+	<label> Subject:
+		<input type="text" name="name" value="{{item.name}}">
+	</label>
+	<label> Your opinion:
+		<textarea name="description">{{item.description}}</textarea>
+	</label>
+	<input type="submit" value="Testify">
+</form>
+
+
+{% endblock %}

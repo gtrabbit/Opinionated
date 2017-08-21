@@ -1,0 +1,17 @@
+{% extends 'wrapper.html' %}
+{% block body %}
+
+<h3>New opinion for {{category.name}}</h3>
+
+<form action="#" method="post">
+	<label> Subject
+		<input type="text" name="name" required> 
+	</label>
+	<br>
+	<label> Your opinion <br>
+		<textarea name="description" required></textarea>
+	</label>
+	<input type="submit" value="Let Loose!">
+</form>
+
+{% endblock %}

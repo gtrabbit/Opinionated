@@ -1,0 +1,58 @@
+{% extends 'wrapper.html' %}
+{% block body %}
+
+   	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="//apis.google.com/js/platform.js?onload=start"> </script>
+<h3>Log in</h3>
+<p>Log in using an existing account</p>
+
+<div class="login-wrapper">
+<h4>Google:</h4>
+			<div id="signInButton">
+		      	<span class="g-signin"
+		      	id="dataSpan"
+		        data-scope="openid email"
+		        data-clientid="268061364308-sq6ccru567bm1mc8doir14epqrr4u1j6.apps.googleusercontent.com"
+		        data-redirecturi="postmessage"
+		        data-accesstype="offline"
+		        data-cookiepolicy="single_host_origin"
+		        data-callback="signInCallback"
+		        data-approvalprompt="force"> </span>
+    		</div>
+
+    		<div id="result"></div>
+</div>
+
+
+    		
+
+<script>
+	function signInCallback (authResult){
+	
+	if (authResult['code']){
+		    $('signInButton').attr('style', 'display: none')}
+	$.ajax({
+		    type: 'POST',
+		    url: '/gconnect?state={{STATE}}',
+		    processData: false,
+		    contentType: 'application/octet-stream; charset=utf-8',
+		    data: authResult['code'],
+		    success: function(result){
+		      if (result){
+		        $('#result').html('Login Successful!<br> ' + result + '<br>Redirecting...')
+		          setTimeout(function(){
+		            window.location.href = "{{formerPage}}";
+		          }, 3000);
+		      } else if (authResult['error']){
+		        console.log('There was an error' + authResult['error']);
+		      } else {
+		        $('#result').html('Failed to make a server-side call. Check your configuration and console');
+		      }
+		    }
+		  })
+		}
+
+
+
+</script>
+{% endblock %}

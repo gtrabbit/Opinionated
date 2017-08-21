@@ -1,0 +1,202 @@
+{% extends 'wrapper.html' %}
+{% block body %}
+
+<h3>API</h3>
+
+<p>Opinionated offers a simple API to help developers who would like to access our data. Output is returned in JSON format. Simply aim a GET request via curl, AJAX or any other tool to any of the following endpoints.</p>
+
+<h4>Endpoints</h4>
+
+<h5>/api/opinions/{item id}</h5>
+<p>
+  This endpoint returns information on a specific opinion, indexed by id. There are no additional parameters. A call returns information on the opinion, including data for each individual vote on the opinion. The result should look like this:
+</p>
+
+<pre> >>/api/opinions/24 </pre>
+<pre> >>{
+  "Opinion": {
+    "category_id": 2, 
+    "created_by": 1, 
+    "description": "Autem nostra in eu.", 
+    "id": 24, 
+    "name": "roller"
+  }, 
+  "Votes": {
+    "0": {
+      "Up vote": false, 
+      "id": 59, 
+      "item created by": 1, 
+      "item id": 24, 
+      "voter": 1
+    }, 
+    "1": {
+      "Up vote": true, 
+      "id": 60, 
+      "item created by": 1, 
+      "item id": 24, 
+      "voter": 2
+    }
+  }
+} </pre>
+
+
+<h5>/api/users/{email or user id}</h5>
+<p>
+	This endpoint takes a user's email address or unique user id and returns information about that user. Without parameters, the response consists of basic user information, including username, email, id, etc. e.g.:
+	<pre> >> /api/users/1 </pre>
+	<pre> >> {
+  "user": {
+    "about": "Frank was here before the beginning.", 
+    "email": "FrankMystery@provider.net", 
+    "id": 1, 
+    "picture": "/static/imgs/mask.jpg", 
+    "username": "Mysterious Frank"
+  }
+} </pre>
+</p>
+<h6>Search</h6>
+<p>
+	The 'search' parameter accepts two values: 'categories' or 'opinions', and returns all categories or all opinions created by the identified user.
+	<pre> >> /api/users/1?search=categories</pre>
+	<pre> >> {
+  "categories": {
+    "0": {
+      "created_by": 1, 
+      "id": 1, 
+      "name": "inventories"
+    }, 
+    "1": {
+      "created_by": 1, 
+      "id": 2, 
+      "name": "thermometers"
+    }, 
+    "2": {
+      "created_by": 1, 
+      "id": 3, 
+      "name": "tours"
+    }, 
+    "3": {
+      "created_by": 1, 
+      "id": 4, 
+      "name": "staplers"
+    }, 
+    "4": {
+      "created_by": 1, 
+      "id": 5, 
+      "name": "heads"
+    }, 
+    "5": {
+      "created_by": 1, 
+      "id": 6, 
+      "name": "dents"
+    }
+  }
+}</pre>
+</p>
+
+<h5> /api/search/{category or opinion} </h5>
+<p>
+	This endpoint allows developers to query categories or opinions according to a search term. The returned value is any category (or opinion, depending on the specified searh type) matching the provided search term. The search term is provided with the parameter 'find'
+
+	<br>
+
+	 The query is performed with the SQL <code>LIKE</code> function as follows <code>LIKE %term%</code>. Thus, a search for 'arm' would return 'ch<strong>arm</strong>', 'Ch<strong>arm</strong>ander' and '<strong>arm</strong>or', but not 'ram', 'art' or 'truck'. Failing to specify a search term will return the first 10 (alphabetically) items.
+</p>
+<p>
+	You can also specify a maximum number of items to return using <code>&limit={n}</code>, where n = any integer. The server will return any number of results up until <code>n</code>, inclusive. If no limit is specified, the server wil default to returning 10 items. The following example combines both parameters
+
+	<pre> >>/api/search/opinion?find=ep&limit=5 </pre>
+	<pre> >> {
+  "result": {
+    "0": {
+      "category_id": 2, 
+      "created_by": 1, 
+      "description": "Conubia a luptatum sed.", 
+      "id": 9, 
+      "name": "departures"
+    }, 
+    "1": {
+      "category_id": 4, 
+      "created_by": 1, 
+      "description": "Elitnunc nostrud dis nobis magnis te, gravida arcumorbi congue autem nullam pulvinar facilisisat facer gubergren.", 
+      "id": 54, 
+      "name": "sweep"
+    }, 
+    "2": {
+      "category_id": 6, 
+      "created_by": 1, 
+      "description": "Interdum, condimentum donec accumsannulla liber quisque varius.", 
+      "id": 70, 
+      "name": "steeple"
+    }, 
+    "3": {
+      "category_id": 6, 
+      "created_by": 1, 
+      "description": "Arcumorbi semvestibulum viverra.", 
+      "id": 84, 
+      "name": "sweep"
+    }, 
+    "4": {
+      "category_id": 6, 
+      "created_by": 1, 
+      "description": "Porttitor nec magnapraesent dictumstvivamus duo, vero diaminteger lobortis lacusut molestie rebum erosin.", 
+      "id": 85, 
+      "name": "reports"
+    }
+  }
+}
+	</pre>
+</p>
+
+
+<h5> /api/categories/{category id} </h5>
+
+<p>
+	This endpoint returns all opinions within the specified category id. A 'limit' parameter (consisting of any integer) may also be specified to limit the number of opinions returned. Failing to specify the limit will return all items in the category. See the following example:
+	<pre>
+		>> /api/categories/4?limit=5
+	</pre>
+	<pre>
+		>> {
+  "opinions": {
+    "0": {
+      "category_id": 4, 
+      "created_by": 1, 
+      "description": "Tortor dictum aliquip conguenulla dictumstvivamus esse luptatum, fames dapibusnam nostrud dignissim magnis sit imperdietaliquam.", 
+      "id": 42, 
+      "name": "gate"
+    }, 
+    "1": {
+      "category_id": 4, 
+      "created_by": 1, 
+      "description": "Justocras dolores duimauris faucibusvestibulum erat, senectus clita gubergren.", 
+      "id": 43, 
+      "name": "winches"
+    }, 
+    "2": {
+      "category_id": 4, 
+      "created_by": 1, 
+      "description": "Enimnulla consecteturpraesent exerci auctormauris ipsuminteger.", 
+      "id": 44, 
+      "name": "chest"
+    }, 
+    "3": {
+      "category_id": 4, 
+      "created_by": 1, 
+      "description": "Volutpatut inceptos neque.", 
+      "id": 45, 
+      "name": "beam"
+    }, 
+    "4": {
+      "category_id": 4, 
+      "created_by": 1, 
+      "description": "Facilisi facer, bibendumfusce enimsed quisaenean te fusce egestas autem.", 
+      "id": 46, 
+      "name": "pushup"
+    }
+  }
+}
+	</pre>
+</p>
+
+{% endblock %}

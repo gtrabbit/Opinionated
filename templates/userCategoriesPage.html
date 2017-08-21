@@ -1,0 +1,26 @@
+<!-- lists out all categories by user-->
+
+{% extends 'wrapper.html' %}
+{% block body %}
+
+	{% include 'userProfile.html' %}
+
+<div>
+	{% if session.get('user_id') == user.id %}
+		<a href="{{url_for('editProfile', user_id = user.id)}}">Edit Profile</a>
+		<a href="{{url_for('makeNewCategory')}}"></a>
+	{% endif %}
+</div>
+
+<h4>{{user.username}} has opinions on the following categories:</h4>
+
+<ul>
+	{% for category in categories %}
+		<li> <a href="{{url_for('showCategory', category_id = category.id)}}">{{ category.name }} </a> </li>
+		{% if session.get('user_id') == user.id %}
+		<button onclick=deleteCategory("{{url_for('deleteCategory',category_id=category.id)}}")>Delete</button>
+		{% endif %}
+	{% endfor %}
+</ul>
+
+{% endblock %}
