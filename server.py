@@ -25,7 +25,7 @@ APPLICATION_NAME = "Opinionated"
 
 
 # Connect to Database and create database session
-engine = create_engine('postgresql://user:psswd@localhost/opinionated')
+engine = create_engine('postgresql://grader:grader@localhost/opinionated')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
