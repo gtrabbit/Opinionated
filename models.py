@@ -95,7 +95,7 @@ class User(Base):
             'picture': self.picture
         }
 
-engine = create_engine('postgresql://grader:grader@localhost/opinionated')
+engine = create_engine("postgresql://grader:grader@localhost/opinionated")
 
 
 Base.metadata.create_all(engine)
