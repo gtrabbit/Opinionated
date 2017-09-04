@@ -28,7 +28,8 @@ def makeRandomStuff():
 
     session.add(frank)
     session.commit()
-    frank_id = session.query(User).one().id
+    frank_id = session.query(User).filter_by(
+        username='Mysterious Frank').one().id
 
     tara = User(
         username="Green Tara",
