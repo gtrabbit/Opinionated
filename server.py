@@ -17,7 +17,9 @@ from oauth2client.client import FlowExchangeError
 
 # fill ye olde Flask
 app = Flask(__name__)
-
+app.secret_key = ''.join(
+    random.choice(string.ascii_uppercase + string.digits)
+    for x in range(32))
 
 CLIENT_ID = json.loads(
     open('./client_secrets.json', 'r').read())['web']['client_id']
@@ -699,8 +701,6 @@ def apiSearch(searchType):
 
 
 if __name__ == '__main__':
-    app.secret_key = ''.join(
-        random.choice(string.ascii_uppercase + string.digits)
-        for x in range(32))
+
     app.debug = True
     app.run(host='localhost' , port=5000)
