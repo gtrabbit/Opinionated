@@ -29,7 +29,7 @@ def makeRandomStuff():
     session.add(frank)
     session.commit()
     frank_id = session.query(User).filter_by(
-        username='Mysterious Frank').one().id
+        username='Mysterious Frank').first().id
 
     tara = User(
         username="Green Tara",
@@ -40,7 +40,7 @@ def makeRandomStuff():
     session.add(tara)
     session.commit()
     tara_id = session.query(User).filter_by(
-        username='Green Tara').one().id
+        username='Green Tara').first().id
 
     james = User(
         username="James Jamerson",
@@ -50,7 +50,7 @@ def makeRandomStuff():
 
     session.add(james)
     james_id = session.query(User).filter_by(
-        username='James Jamerson').one().id
+        username='James Jamerson').first().id
     session.commit()
 
     chicken = User(
@@ -61,7 +61,7 @@ def makeRandomStuff():
 
     session.add(chicken)
     chicken_id = session.query(User).filter_by(
-        username='Chicken Elizabeth').one().id
+        username='Chicken Elizabeth').first().id
     session.commit()
 
     # load random words classes
