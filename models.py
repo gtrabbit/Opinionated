@@ -61,7 +61,7 @@ class Vote(Base):
     voter = Column(Integer, ForeignKey('user.id'))
     votee = Column(Integer, ForeignKey('user.id'))
     item = Column(Integer, ForeignKey('item.id'))
-    up_or_down = Column(Boolean)
+    up_or_down = Column(Integer)
 
     def serialize(self):
         return {

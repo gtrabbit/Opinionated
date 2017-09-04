@@ -265,16 +265,16 @@ def showUserCats(user_id):
         id=user_id).one()
     up_votes = session.query(func.count(Vote.id)).filter_by(
         votee=user_id,
-        up_or_down=True).one()[0]
+        up_or_down=1).one()[0]
     down_votes = session.query(func.count(Vote.id)).filter_by(
         votee=user_id,
-        up_or_down=False).one()[0]
+        up_or_down=0).one()[0]
     user_upVotes = session.query(func.count(Vote.id)).filter_by(
         voter=user_id,
-        up_or_down=True).one()[0]
+        up_or_down=1).one()[0]
     user_downVotes = session.query(func.count(Vote.id)).filter_by(
         voter=user_id,
-        up_or_down=False).one()[0]
+        up_or_down=0).one()[0]
     user_votes = [user_upVotes, user_downVotes]
     return render_template(
         'userCategoriesPage.html',
