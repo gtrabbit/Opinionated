@@ -10,7 +10,7 @@ from models import Base, Item, User, Category, Vote
 def makeRandomStuff():
 
     # set up database session
-    engine = create_engine('sqlite:///opinionated.db')
+    engine = create_engine('postgresql://user:psswd@localhost/opinionated')
     # Bind the engine to the metadata of the Base class so that the
     # declaratives can be accessed through a DBSession instance
 

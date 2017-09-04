@@ -25,7 +25,7 @@ APPLICATION_NAME = "Opinionated"
 
 
 # Connect to Database and create database session
-engine = create_engine('sqlite:///opinionated.db')
+engine = create_engine('postgresql://user:psswd@localhost/opinionated')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -703,4 +703,4 @@ if __name__ == '__main__':
         random.choice(string.ascii_uppercase + string.digits)
         for x in range(32))
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='localhost' , port=80)

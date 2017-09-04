@@ -95,7 +95,7 @@ class User(Base):
             'picture': self.picture
         }
 
-engine = create_engine('sqlite:///opinionated.db')
+engine = create_engine('postgresql://user:psswd@localhost/opinionated')
 
 
 Base.metadata.create_all(engine)
