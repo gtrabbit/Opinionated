@@ -96,18 +96,6 @@ def makeRandomStuff():
 
 if __name__ == '__main__':
     # check for pre-existing database
-    if path.isfile('./opinionated.db'):
-        # if there is one, ask user to delete it
-        ans = input(
-            'An opinionated database already exists '
-            'in this directory. Running this module will '
-            'delete all previous data. Are you sure you '
-            'want to continue? [y/n]--> ')
-        # delete old database
-        if ans == 'y':
-            remove('opinionated.db')
-            makeRandomStuff()
-            print("Completed building starter data")
-        # otherwise, we leave the module
-        else:
-            exit("See you around!")
+    makeRandomStuff()
+    print("Completed building starter data")
+
