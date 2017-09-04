@@ -703,4 +703,4 @@ if __name__ == '__main__':
         random.choice(string.ascii_uppercase + string.digits)
         for x in range(32))
     app.debug = True
-    app.run(host='localhost' , port=80)
+    app.run(host='localhost' , port=5000)
