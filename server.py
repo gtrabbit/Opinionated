@@ -52,7 +52,8 @@ def userLogin():
     template = render_template(
         'login.html',
         STATE=state,
-        formerPage=formerPage)
+        formerPage=formerPage,
+        client_id=CLIENT_ID)
     login_session['onTheLoginPage'] = False
     return template
 
