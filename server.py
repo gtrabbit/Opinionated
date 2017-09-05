@@ -22,7 +22,7 @@ app.secret_key = ''.join(
     for x in range(32))
 
 CLIENT_ID = json.loads(
-    open('./client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/Opinionated/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Opinionated"
 
 
@@ -703,4 +703,4 @@ def apiSearch(searchType):
 if __name__ == '__main__':
 
     app.debug = True
-    app.run(host='localhost' , port=5000)
+    app.run(host='localhost' , port=2222)
