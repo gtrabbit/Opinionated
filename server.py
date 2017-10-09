@@ -92,7 +92,7 @@ def gconnect():
     h = httplib2.Http()
     response = h.request(url, 'GET')[1].decode('utf8')
     print(response)
-    result = json.loads(response)
+    result = json.loads(response.json())
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 500)
