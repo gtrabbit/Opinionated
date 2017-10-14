@@ -22,7 +22,7 @@ app.secret_key = ''.join(
     for x in range(32))
 
 CLIENT_ID = json.loads(
-    open('/var/www/Opinionated/client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/html/Opinionated/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Opinionated"
 
 
