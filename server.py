@@ -73,7 +73,7 @@ def gconnect():
     try:
         # Upgrade the authorization code into a credentials object
         oauth_flow = flow_from_clientsecrets(
-            '/var/www/opinionated/client_secrets.json', scope='')
+            '/var/www/html/opinionated/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -91,9 +91,8 @@ def gconnect():
             access_token))
     h = httplib2.Http()
     response = h.request(url, 'GET')[1]
-    response = response.decode('utf8')
 
-    result = json.loads(response.json())
+    result = json.loads(response)
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 500)
