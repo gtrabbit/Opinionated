@@ -39,7 +39,7 @@ session = DBSession()
 # [=====================]
 
 # generates state token for authentication
-@app.route('/login')
+@app.route('/opinionated/login')
 def userLogin():
     login_session['onTheLoginPage'] = True
     formerPage = request.args.get('formerPage')
@@ -169,7 +169,7 @@ def gconnect():
 
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
-@app.route('/gdisconnect')
+@app.route('/opinionated/gdisconnect')
 def gdisconnect():
     # clear the login_session right away. Even if revocation fails
     # user will want this. also. little to nothing user could do
@@ -203,8 +203,8 @@ def gdisconnect():
 
 
 # Main Page
-@app.route('/')
-@app.route('/home')
+@app.route('/opinionated/')
+@app.route('/opinionated/home')
 def showIndex():
     categories = session.query(Category).order_by(Category.name).all()
 
@@ -215,7 +215,7 @@ def showIndex():
 
 
 # category page
-@app.route('/categories/<int:category_id>')
+@app.route('/opinionated/categories/<int:category_id>')
 def showCategory(category_id):
     category = session.query(Category).filter_by(
         id=category_id).one()
@@ -232,7 +232,7 @@ def showCategory(category_id):
 
 
 # individual item page
-@app.route('/opinions/<int:item_id>')
+@app.route('/opinionated/opinions/<int:item_id>')
 def showItem(item_id):
     item = session.query(Item).filter_by(
         id=item_id).one()
@@ -262,7 +262,7 @@ def showItem(item_id):
 
 
 # user categories page
-@app.route('/users/<int:user_id>/categories')
+@app.route('/opinionated/users/<int:user_id>/categories')
 def showUserCats(user_id):
     categories = session.query(Category).filter_by(
         created_by=user_id).all()
@@ -291,7 +291,7 @@ def showUserCats(user_id):
 
 
 # search results page
-@app.route('/search')
+@app.route('/opinionated/search')
 def showSearchResults():
     searchType = request.args['searchType']
     if searchType == 'Category' or searchType == "Item":
@@ -327,13 +327,13 @@ def showSearchResults():
         return redirect(url_for('showIndex'))
 
 
-@app.route('/users')
+@app.route('/opinionated/users')
 def showAllUsers():
     users = session.query(User).all()
     return render_template('allUsers.html', users=users)
 
 
-@app.route('/developers')
+@app.route('/opinionated/developers')
 def forDevelopers():
     return render_template('forDevelopers.html')
 
@@ -344,7 +344,7 @@ def forDevelopers():
 
 
 # edit user's profile
-@app.route('/users/<int:user_id>/edit', methods=['GET', 'POST'])
+@app.route('/opinionated/users/<int:user_id>/edit', methods=['GET', 'POST'])
 def editProfile(user_id):
 
     if request.method == 'GET':
@@ -396,7 +396,7 @@ def editProfile(user_id):
 
 
 # edit an individual item
-@app.route('/opinions/<int:item_id>/edit', methods=['GET', 'POST'])
+@app.route('/opinionated/opinions/<int:item_id>/edit', methods=['GET', 'POST'])
 def editItem(item_id):
     item = session.query(Item).filter_by(id=item_id).first()
     if request.method == 'POST':
@@ -424,7 +424,7 @@ def editItem(item_id):
 
 
 # add item
-@app.route('/categories/<int:category_id>/newitem', methods=['GET', 'POST'])
+@app.route('/opinionated/categories/<int:category_id>/newitem', methods=['GET', 'POST'])
 def makeNewItem(category_id):
     if login_session.get('user_id') is None:
         flash('You must be logged in to submit new opinions')
@@ -460,7 +460,7 @@ def makeNewItem(category_id):
 
 
 # add category
-@app.route('/categories/new', methods=['GET', 'POST'])
+@app.route('/opinionated/categories/new', methods=['GET', 'POST'])
 def makeNewCategory():
     if login_session.get('user_id') is None:
         flash('You must be logged in to create new categories')
@@ -488,7 +488,7 @@ def makeNewCategory():
 # I=====================I
 
 # delete item
-@app.route('/opinions/<int:item_id>/delete', methods=['DELETE'])
+@app.route('/opinionated/opinions/<int:item_id>/delete', methods=['DELETE'])
 def deleteItem(item_id):
     item = session.query(Item).filter_by(id=item_id).one()
     if login_session['user_id'] == item.created_by:
@@ -507,7 +507,7 @@ def deleteItem(item_id):
 
 
 # delete user
-@app.route('/users/<int:user_id>/delete', methods=['DELETE'])
+@app.route('/opinionated/users/<int:user_id>/delete', methods=['DELETE'])
 def deleteUser(user_id):
     if login_session['user_id'] == user_id:
         # delete all categories, votes and items associated with user
@@ -537,7 +537,7 @@ def deleteUser(user_id):
 
 
 # delete category
-@app.route('/categories/<int:category_id>/delete', methods=['DELETE'])
+@app.route('/opinionated/categories/<int:category_id>/delete', methods=['DELETE'])
 def deleteCategory(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
     if login_session['user_id'] != category.created_by:
@@ -560,7 +560,7 @@ def deleteCategory(category_id):
 
 
 @app.route(
-    '/opinions/vote/<int:vote>/<int:user_id>/<int:item_id>',
+    '/opinionated/opinions/vote/<int:vote>/<int:user_id>/<int:item_id>',
     methods=['POST'])
 def userVote(vote, user_id, item_id):
     session.add(Vote(
@@ -576,7 +576,7 @@ def userVote(vote, user_id, item_id):
 # I=====================I
 
 
-@app.route('/api/opinions/<string:item_id>')
+@app.route('/opinionated/api/opinions/<string:item_id>')
 def apiOpinion(item_id):
     item = session.query(Item).filter_by(id=item_id).first()
     if not item:
@@ -592,7 +592,7 @@ def apiOpinion(item_id):
         'Votes': voteDict})
 
 
-@app.route('/api/users/<string:user_identifier>')
+@app.route('/opinionated/api/users/<string:user_identifier>')
 def apiUserSearch(user_identifier):
     # first, we determine how the user is being queried
 
@@ -638,7 +638,7 @@ def apiUserSearch(user_identifier):
         return jsonify({'Error': "Could not understand your request"})
 
 
-@app.route('/api/categories/<int:category_id>')
+@app.route('/opinionated/api/categories/<int:category_id>')
 def apiCategory(category_id):
     # check if request parameters are included
     if request.args:
@@ -668,7 +668,7 @@ def apiCategory(category_id):
             return jsonify({"error": "no match for your search"})
 
 
-@app.route('/api/search/<string:searchType>')
+@app.route('/opinionated/api/search/<string:searchType>')
 def apiSearch(searchType):
     # just to be certain, we uppercase the search term
     searchType = searchType[0].upper() + searchType[1:]

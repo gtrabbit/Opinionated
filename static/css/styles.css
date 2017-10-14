@@ -59,7 +59,7 @@ header {
   width: 100%;
   flex-wrap: wrap;
   position: relative;
-  background: url("/static/imgs/blue-texture.jpg"); }
+  background: url("../imgs/blue-texture.jpg"); }
   header .login {
     position: absolute;
     top: 0;
