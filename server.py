@@ -73,7 +73,7 @@ def gconnect():
     try:
         # Upgrade the authorization code into a credentials object
         oauth_flow = flow_from_clientsecrets(
-            '/var/www/Opinionated/client_secrets.json', scope='')
+            '/var/www/opinionated/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -90,8 +90,9 @@ def gconnect():
         'tokeninfo?access_token={}'.format(
             access_token))
     h = httplib2.Http()
-    response = h.request(url, 'GET')[1].decode('utf8')
-    print(response)
+    response = h.request(url, 'GET')[1]
+    response = response.decode('utf8')
+
     result = json.loads(response.json())
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
@@ -595,7 +596,7 @@ def apiOpinion(item_id):
 @app.route('/opinionated/api/users/<string:user_identifier>')
 def apiUserSearch(user_identifier):
     # first, we determine how the user is being queried
-
+    user_identifier = user_identifier.encode()
     # if the route variable is an integer
     if str.isdigit(user_identifier):
         user = session.query(User).filter_by(id=user_identifier).first()
@@ -642,7 +643,7 @@ def apiUserSearch(user_identifier):
 def apiCategory(category_id):
     # check if request parameters are included
     if request.args:
-        limit = request.args.get('limit')
+        limit = request.args.get('limit').encode()
         # check to make sure request is formatted properly
         if not str.isdigit(limit):
             return jsonify({
@@ -688,7 +689,7 @@ def apiSearch(searchType):
             return jsonify({'result': resDict})
         else:
             if request.args.get('limit') and str.isdigit(
-                    request.args.get('limit')):
+                    request.args.get('limit').encode()):
                 limit = request.args.get('limit')
             else:
                 limit = 10
