@@ -23,7 +23,7 @@ def makeRandomStuff():
     frank = User(
         username="Mysterious Frank",
         email="FrankMystery@provider.net",
-        picture="/static/imgs/mask.jpg",
+        picture="/opinionated/static/imgs/mask.jpg",
         about="Frank was here before the beginning.")
 
     session.add(frank)
@@ -34,7 +34,7 @@ def makeRandomStuff():
     tara = User(
         username="Green Tara",
         email="GreenTara@dharmakaya.tb",
-        picture='/static/imgs/tara.JPG',
+        picture='/opinionated/static/imgs/tara.JPG',
         about='A benevolent presence.')
 
     session.add(tara)
@@ -45,7 +45,7 @@ def makeRandomStuff():
     james = User(
         username="James Jamerson",
         email="jjj@monkeybutler.org",
-        picture='/static/imgs/rocks.JPG',
+        picture='/opinionated//static/imgs/rocks.JPG',
         about='A man who loves rocks very much')
 
     session.add(james)
@@ -56,7 +56,7 @@ def makeRandomStuff():
     chicken = User(
         username='Chicken Elizabeth',
         email="dontcomenearmyhouse@bark.mail",
-        picture='/static/imgs/dog.jpg',
+        picture='/opinionated/static/imgs/dog.jpg',
         about="A fearful dog")
 
     session.add(chicken)

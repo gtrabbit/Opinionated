@@ -2,7 +2,7 @@
 
 <div class="userProfile">
 	<h3> {{user.username}} </h3>
-	<img class="profilePic" src="/opinionated/{{user.picture}}">
+	<img class="profilePic" src="{{user.picture}}">
 	<div class="voteCounter-wrapper">
 		<h6>Opinion Popularity</h6>
 		{% include 'voteCounter.html' %}
