@@ -22,7 +22,7 @@ app.secret_key = ''.join(
     for x in range(32))
 
 CLIENT_ID = json.loads(
-    open('/var/www/html/Opinionated/client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/html/opinionated/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Opinionated"
 
 
@@ -59,7 +59,7 @@ def userLogin():
 
 
 # for OAuth connection
-@app.route('/gconnect', methods=['POST'])
+@app.route('opinionated/gconnect', methods=['POST'])
 def gconnect():
     # Validate state token
     if request.args.get('state') != login_session['state']:
